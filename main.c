@@ -36,6 +36,7 @@ char *join(int ac, char **av, size_t size)
 {
     int i = 1;
     int j = 0;
+    int k;
     char *str = malloc(sizeof(char) * (size + 1));
     if (!str) 
     {
@@ -45,7 +46,7 @@ char *join(int ac, char **av, size_t size)
     
     while (i < ac)
     {
-        int k = 0;
+        k = 0;
         while (av[i][k])
         {
             str[j++] = av[i][k++];
@@ -135,7 +136,10 @@ void is_here_dup(int *a, int k)
         i++;
     }
 }
-
+// void sort_it(int *ar , int k)
+// {
+//             3awd lkrk rh baqi mlqitch sort li nkhdm biha 
+// }
 int main(int ac, char **av)
 {
     if (ac < 2)
@@ -150,7 +154,7 @@ int main(int ac, char **av)
     int k = 0;
     int *ar = parse_input(ac, av, &k);
     is_here_dup(ar, k);
-    //sort(ar, k);
+    //sort_it(ar, k);
     free(ar);
     return 0;
 }
