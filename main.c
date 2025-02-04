@@ -24,7 +24,10 @@ void check(char *str)
         if (str[i] == '+' || str[i] == '-')
             i++;
         if (str[i] != 32 && !(str[i] >= '0' && str[i] <= '9'))
+        {
+            write(1 ,"ERROR\n" , 6);
             exit(1);
+        }
         i++;
     }
 }
