@@ -1,74 +1,82 @@
 #include "push_swap.h"
 
-void replace_by_space(char *str)
+void	replace_by_space(char *str)
 {
-    int i = 0;
-    while (str[i])
-    {
-        if (str[i] >= 9 && str[i] <= 13)
-        {
-            str[i] = 32;
-        }
-        i++;
-    }
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 9 && str[i] <= 13)
+		{
+			str[i] = 32;
+		}
+		i++;
+	}
 }
 
-void check(char *str)
+void	check(char *str)
 {
-    int i = 0;
-    while (str[i])
-    {
-        if (str[i] == '+' || str[i] == '-')
-            i++;
-        if (str[i] != 32 && !(str[i] >= '0' && str[i] <= '9'))
-        {
-            write(1 ,"ERROR\n" , 6);
-            exit(1);
-        }
-        i++;
-    }
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '+' || str[i] == '-')
+			i++;
+		if (str[i] != 32 && !(str[i] >= '0' && str[i] <= '9'))
+		{
+			write(1, "ERROR\n", 6);
+			exit(1);
+		}
+		i++;
+	}
 }
 
-char *join(int ac, char **av, size_t size)
+char	*join(int ac, char **av, size_t size)
 {
-    int i = 1, j = 0, k;
-    char *str = malloc(sizeof(char) * (size + 1)); 
-    if (!str)
-    {
-        write(2, "Memory allocation failed\n", 24);
-        exit(1);
-    }
+	int		i = 1, j;
+    int k;
+	char	*str;
 
-    while (i < ac)
-    {
-        k = 0;
-        while (av[i][k])
-            str[j++] = av[i][k++];
-        if (i < ac - 1)
-            str[j++] = 32;
-        i++;
-    }
-    str[j] = '\0';
-    return str;
+	i = 1, j = 0;
+	str = malloc(sizeof(char) * (size + 1));
+	if (!str)
+	{
+		write(2, "Memory allocation failed\n", 24);
+		exit(1);
+	}
+	while (i < ac)
+	{
+		k = 0;
+		while (av[i][k])
+			str[j++] = av[i][k++];
+		if (i < ac - 1)
+			str[j++] = 32;
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
 }
 
-
-int da7k(char *string, int *i)
+int	da7k(char *string, int *i)
 {
-    int j = 0;
-    while (string[j])
-    {
-        while (string[j] == 32)
-            j++;
-        if (string[j] >= '0' && string[j] <= '9')
-        {
-            (*i)++;
-            while (string[j] >= '0' && string[j] <= '9')
-                j++;
-        }
-        else
-            j++;
-    }
+	int	j;
+
+	j = 0;
+	while (string[j])
+	{
+		while (string[j] == 32)
+			j++;
+		if (string[j] >= '0' && string[j] <= '9')
+		{
+			(*i)++;
+			while (string[j] >= '0' && string[j] <= '9')
+				j++;
+		}
+		else
+			j++;
+	}
 }
 size_t	ft_strlen(const char *s)
 {
@@ -81,113 +89,160 @@ size_t	ft_strlen(const char *s)
 	}
 	return ((size_t)(ptr - s));
 }
-int *parse_input(int ac, char **av, int *k)
+int	*parse_input(int ac, char **av, int *k)
 {
-    size_t sum = 0;
-    int i = 1;
-    while (i < ac)
-    {
-        sum += ft_strlen((const char *)av[i]) + 1 ;
-        replace_by_space(av[i]);
-        check(av[i]);
-        i++;
-    }
-    char *all_of_them_here = join(ac, av, sum);
-    da7k(all_of_them_here, k);
-    
-    int *arr = malloc(sizeof(int) * (*k));
-    if (!arr)
-    {
-        free(all_of_them_here);
-        write(2, "Memory allocation failed\n", 24);
-        exit(1);
-    }
-    
-    i = 0;
-    int a = 0;
-    int c = 0;
-    int sign ;
-    int of;
-    while (all_of_them_here[i])
-    {
-        sign =1 ;
-        while (all_of_them_here[i] == 32)
-            i++;
-        c = 0;
-        if(all_of_them_here[i] == '+' || all_of_them_here[i] == '-')
-        {
-            if(all_of_them_here[i] == '-')
-                sign = -1;
-            i++;
-        }
-        of = 0;
-        while (all_of_them_here[i] >= '0' && all_of_them_here[i] <= '9')
-        {
-            if(of++ > 11)
-            {
-                free(all_of_them_here);
-                free(arr);
-                write(1, "ERROR\n", 6);
-                exit(1);
-            }
-            c = c * 10 + (all_of_them_here[i] - '0');
-            i++;
-            of++;
-        }
-        arr[a++] = c*sign;
-    }
-    free(all_of_them_here);
-    return arr;
+	size_t	sum;
+	int		i;
+	char	*all_of_them_here;
+	int		*arr;
+	int		a;
+	int		c;
+	int		sign;
+
+	sum = 0;
+	i = 1;
+	while (i < ac)
+	{
+		sum += ft_strlen((const char *)av[i]) + 1;
+		replace_by_space(av[i]);
+		check(av[i]);
+		i++;
+	}
+	all_of_them_here = join(ac, av, sum);
+	da7k(all_of_them_here, k);
+	arr = malloc(sizeof(int) * (*k));
+	if (!arr)
+	{
+		free(all_of_them_here);
+		write(2, "Memory allocation failed\n", 24);
+		exit(1);
+	}
+	i = 0;
+	a = 0;
+	c = 0;
+	while (all_of_them_here[i])
+	{
+		sign = 1;
+		while (all_of_them_here[i] == 32)
+			i++;
+		c = 0;
+		if (all_of_them_here[i] == '+' || all_of_them_here[i] == '-')
+		{
+			if (all_of_them_here[i] == '-')
+				sign = -1;
+			i++;
+		}
+		while (all_of_them_here[i] >= '0' && all_of_them_here[i] <= '9')
+		{
+			c = c * 10 + (all_of_them_here[i] - '0');
+			i++;
+		}
+        c = c * sign;
+	    if (c > 2147483647|| c < -2147483648)
+		{
+			free(all_of_them_here);
+			free(arr);
+			write(1, "ERROR\n", 6);
+			exit(1);
+		}
+		arr[a++] = c ;
+	}
+	free(all_of_them_here);
+	return (arr);
 }
 
-void is_here_dup(int *a, int k)
+void	is_here_dup(int *a, int k)
 {
-    int i = 0;
-    while (i < k - 1)
-    {
-        int j = i + 1;
-        while (j < k)
-        {
-            if (a[i] == a[j])
-            {
-                free(a);
-                write(2, "ERROR\n", 6);
-                exit(1);
-            }
-            j++;
-        }
-        i++;
-    }
-}
-// void sort_it(int *ar , int k)
-// {
-//             3awd lkrk rh baqi mlqitch sort li nkhdm biha 
-// }
+	int	i;
+	int	j;
 
-void afficher(int *a , int k )
+	i = 0;
+	while (i < k - 1)
+	{
+		j = i + 1;
+		while (j < k)
+		{
+			if (a[i] == a[j])
+			{
+				free(a);
+				write(2, "ERROR\n", 6);
+				exit(1);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+void swap(int *a, int *b)
 {
-    for(int i = 0 ; i < k ; i++)
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int partition(int *arr, int low, int high)
+{
+    int pivot = arr[high];
+    int i = low - 1;
+    int j = low;
+
+    while (j < high)
     {
-        printf("%d : %d" , i  , a[i]);
-        printf("\n----\n");
+        if (arr[j] < pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+        j++;
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return i + 1;
+}
+
+void quick_sort(int *arr, int low, int high)
+{
+    if (low < high)
+    {
+        int pi = partition(arr, low, high);
+        quick_sort(arr, low, pi - 1);
+        quick_sort(arr, pi + 1, high);
     }
 }
-int main(int ac, char **av)
+
+void sort_it(int *ar, int k)
 {
-    if (ac < 2)
-        return 0;
-    
-    if (av[1][0] == '\0')
-    {
-        write(2, "ERROR:\n", 7);
-        exit(1);
-    }
-    
-    int k = 0;
-    int *ar = parse_input(ac, av, &k);
-    is_here_dup(ar, k);
-    //sort_it(ar, k);
-    afficher(ar , k);
-    free(ar);
-    return 0;
+    quick_sort(ar, 0, k - 1);
+}
+
+
+void	afficher(int *a, int k)
+{
+	for (int i = 0; i < k; i++)
+	{
+		printf("%d : %d", i, a[i]);
+		printf("\n----\n");
+	}
+}
+int	main(int ac, char **av)
+{
+	int	k;
+	int	*ar;
+
+	if (ac < 2)
+		return (0);
+	if (av[1][0] == '\0')
+	{
+		write(2, "ERROR:\n", 7);
+		exit(1);
+	}
+	k = 0;
+	ar = parse_input(ac, av, &k);
+	is_here_dup(ar, k);
+    printf("not sorted");
+    afficher(ar,  k);
+	sort_it(ar, k);
+    printf("sorted");
+	afficher(ar, k);
+	free(ar);
+	return (0);
 }
