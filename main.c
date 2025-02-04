@@ -101,17 +101,25 @@ int *parse_input(int ac, char **av, int *k)
     i = 0;
     int a = 0;
     int c = 0;
+    int sign ;
     while (all_of_them_here[i])
     {
+        sign =1 ;
         while (all_of_them_here[i] == 32)
             i++;
         c = 0;
+        if(all_of_them_here[i] == '+' || all_of_them_here[i] == '-')
+        {
+            if(all_of_them_here[i] == '-')
+                sign = -1;
+            i++;
+        }
         while (all_of_them_here[i] >= '0' && all_of_them_here[i] <= '9')
         {
             c = c * 10 + (all_of_them_here[i] - '0');
             i++;
         }
-        arr[a++] = c;
+        arr[a++] = c*sign;
     }
     free(all_of_them_here);
     return arr;
@@ -140,6 +148,15 @@ void is_here_dup(int *a, int k)
 // {
 //             3awd lkrk rh baqi mlqitch sort li nkhdm biha 
 // }
+
+void afficher(int *a , int k )
+{
+    for(int i = 0 ; i < k ; i++)
+    {
+        printf("%d : %d" , i  , a[i]);
+        printf("\n----\n");
+    }
+}
 int main(int ac, char **av)
 {
     if (ac < 2)
@@ -155,6 +172,7 @@ int main(int ac, char **av)
     int *ar = parse_input(ac, av, &k);
     is_here_dup(ar, k);
     //sort_it(ar, k);
+    afficher(ar , k);
     free(ar);
     return 0;
 }
