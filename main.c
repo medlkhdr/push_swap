@@ -173,47 +173,59 @@ void	is_here_dup(int *a, int k)
 		i++;
 	}
 }
-void swap(int *a, int *b)
-{
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
+#include <stdlib.h>
 
-int partition(int *arr, int low, int high)
+void merge(int *arr, int left, int mid, int right)
 {
-    int pivot = arr[high];
-    int i = low - 1;
-    int j = low;
+    int i = 0, j = 0, k = left;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    
+    int *L = malloc(n1 * sizeof(int));
+    int *R = malloc(n2 * sizeof(int));
 
-    while (j < high)
+    if (!L || !R)
     {
-        if (arr[j] < pivot)
-        {
-            i++;
-            swap(&arr[i], &arr[j]);
-        }
-        j++;
+        write(2, "Memory allocation failed\n", 24);
+        exit(1);
     }
-    swap(&arr[i + 1], &arr[high]);
-    return i + 1;
+
+    for (i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+
+    for (j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+
+    i = 0, j = 0;
+
+    while (i < n1 && j < n2)
+        arr[k++] = (L[i] <= R[j]) ? L[i++] : R[j++];
+
+    while (i < n1)
+        arr[k++] = L[i++];
+
+    while (j < n2)
+        arr[k++] = R[j++];
+
+    free(L);
+    free(R);
 }
 
-void quick_sort(int *arr, int low, int high)
+void merge_sort(int *arr, int left, int right)
 {
-    if (low < high)
+    if (left < right)
     {
-        int pi = partition(arr, low, high);
-        quick_sort(arr, low, pi - 1);
-        quick_sort(arr, pi + 1, high);
+        int mid = left + (right - left) / 2;
+        merge_sort(arr, left, mid);
+        merge_sort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
     }
 }
 
 void sort_it(int *ar, int k)
 {
-    quick_sort(ar, 0, k - 1);
+    merge_sort(ar, 0, k - 1);
 }
-
 
 void	afficher(int *a, int k)
 {
@@ -238,10 +250,10 @@ int	main(int ac, char **av)
 	k = 0;
 	ar = parse_input(ac, av, &k);
 	is_here_dup(ar, k);
-    printf("not sorted");
+    printf("not sorted\n");
     afficher(ar,  k);
 	sort_it(ar, k);
-    printf("sorted");
+    printf("sorted\n");
 	afficher(ar, k);
 	free(ar);
 	return (0);
