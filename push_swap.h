@@ -4,6 +4,9 @@
 #include<stdlib.h>
 #include<stdint.h>
 #include<unistd.h>
+#include <limits.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 typedef struct node_s 
 {
@@ -14,7 +17,11 @@ typedef struct node_s
 
 typedef struct stack_s
 {
-	node_t *tail ; // i add to get the last node and take to the top , is simplifying my work with rotate function , to just take the tail , and make in the top  
+	node_t *tail ;
 	node_t *head;
 } stack_t;
+stack_t* create_stack(int *arr , int k );
+stack_t *initialize_stack(void);
+void free_stack(stack_t *stack);
+void afficher_stack(stack_t *a);
 #endif 
