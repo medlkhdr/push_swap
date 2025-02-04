@@ -31,6 +31,14 @@ void	check(char *str)
 		}
 		i++;
 	}
+	i  = 0 ;
+	while(str[i] == 32)
+		i++;
+	if(str[i] == '\0')
+	{
+		write(1, "ERROR" ,5);
+		exit(1);
+	}
 }
 
 char	*join(int ac, char **av, size_t size)
@@ -82,6 +90,13 @@ size_t	ft_strlen(const char *s)
 {
 	const char	*ptr;
 
+	if(s[0] == '\0')
+	{
+		write(1 ,"ERROR\n" , 6);
+		exit(1);
+	}
+
+
 	ptr = s;
 	while (*ptr)
 	{
@@ -89,6 +104,7 @@ size_t	ft_strlen(const char *s)
 	}
 	return ((size_t)(ptr - s));
 }
+
 int	*parse_input(int ac, char **av, int *k)
 {
 	size_t	sum;
@@ -173,7 +189,6 @@ void	is_here_dup(int *a, int k)
 		i++;
 	}
 }
-#include <stdlib.h>
 
 void merge(int *arr, int left, int mid, int right)
 {
@@ -235,6 +250,7 @@ void	afficher(int *a, int k)
 		printf("\n----\n");
 	}
 }
+
 int	main(int ac, char **av)
 {
 	int	k;
@@ -246,7 +262,7 @@ int	main(int ac, char **av)
 	{
 		write(2, "ERROR:\n", 7);
 		exit(1);
-	}
+	};
 	k = 0;
 	ar = parse_input(ac, av, &k);
 	is_here_dup(ar, k);
