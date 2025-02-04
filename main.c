@@ -1,19 +1,16 @@
 #include "push_swap.h"
 
-size_t replace_by_space(char *str)
+void replace_by_space(char *str)
 {
     int i = 0;
-    size_t count = 0;
     while (str[i])
     {
         if (str[i] >= 9 && str[i] <= 13)
         {
             str[i] = 32;
-            count++;
         }
         i++;
     }
-    return count;
 }
 
 void check(char *str)
@@ -34,30 +31,27 @@ void check(char *str)
 
 char *join(int ac, char **av, size_t size)
 {
-    int i = 1;
-    int j = 0;
-    int k;
-    char *str = malloc(sizeof(char) * (size + 1));
-    if (!str) 
+    int i = 1, j = 0, k;
+    char *str = malloc(sizeof(char) * (size + 1)); 
+    if (!str)
     {
         write(2, "Memory allocation failed\n", 24);
         exit(1);
     }
-    
+
     while (i < ac)
     {
         k = 0;
         while (av[i][k])
-        {
             str[j++] = av[i][k++];
-        }
-        str[j] = 32;
-        j++;
+        if (i < ac - 1)
+            str[j++] = 32;
         i++;
     }
     str[j] = '\0';
     return str;
 }
+
 
 int da7k(char *string, int *i)
 {
@@ -76,14 +70,25 @@ int da7k(char *string, int *i)
             j++;
     }
 }
+size_t	ft_strlen(const char *s)
+{
+	const char	*ptr;
 
+	ptr = s;
+	while (*ptr)
+	{
+		ptr++;
+	}
+	return ((size_t)(ptr - s));
+}
 int *parse_input(int ac, char **av, int *k)
 {
     size_t sum = 0;
     int i = 1;
     while (i < ac)
     {
-        sum += replace_by_space(av[i]);
+        sum += ft_strlen((const char *)av[i]) + 1 ;
+        replace_by_space(av[i]);
         check(av[i]);
         i++;
     }
@@ -102,6 +107,7 @@ int *parse_input(int ac, char **av, int *k)
     int a = 0;
     int c = 0;
     int sign ;
+    int of;
     while (all_of_them_here[i])
     {
         sign =1 ;
@@ -114,10 +120,19 @@ int *parse_input(int ac, char **av, int *k)
                 sign = -1;
             i++;
         }
+        of = 0;
         while (all_of_them_here[i] >= '0' && all_of_them_here[i] <= '9')
         {
+            if(of++ > 11)
+            {
+                free(all_of_them_here);
+                free(arr);
+                write(1, "ERROR\n", 6);
+                exit(1);
+            }
             c = c * 10 + (all_of_them_here[i] - '0');
             i++;
+            of++;
         }
         arr[a++] = c*sign;
     }
