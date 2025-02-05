@@ -1,5 +1,5 @@
 #include "push_swap.h"
-stack_t* create_stack(int *arr , int k )
+stack_t* fill_stack(int *arr , int k )
 {
     node_t *a = malloc(sizeof(node_t));
     stack_t *s = malloc(sizeof(stack_t ));
@@ -53,5 +53,5 @@ void afficher_stack(stack_t *a)
         printf("%d->"  , b->i);
         b = b->next ; 
     }
-    printf("NULL");
+    printf("NULL\n");
 }
