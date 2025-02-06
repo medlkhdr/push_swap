@@ -4,6 +4,7 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
+
 # include <stdlib.h>
 # include <unistd.h>
 # include <unistd.h>
@@ -36,5 +37,10 @@ int					extract_number(char *input, int *i, int *arr);
 void				is_here_dup(int *a, int k);
 int					is_sorted(int *a, int k);
 void				process_stack(int *ar, int k);
+void reverse_rotate(stack_t *stack);
+void rotate(stack_t *stack);
+void push(stack_t *from, stack_t *to);
+void swap(stack_t *stack);
 
 #endif
+

@@ -42,10 +42,10 @@ void	check(char *str)
 char	*join(int ac, char **av, size_t size)
 {
 	char	*str;
-	int		i;
+	int		i,j,k;
 
-	i = 1, j;
-	i = 1, j = 0, k;
+	i = 1 ;
+	i = 1, j = 0;
 	str = malloc(sizeof(char) * (size + 1));
 	if (!str)
 	{
@@ -136,25 +136,11 @@ int	*parse_input(int ac, char **av, int *k)
 	free(all_of_them_here);
 	return (arr);
 }
-void	process_stack(int *ar, int k)
-{
-	stack_t	*stacka;
-	stack_t	*stackb;
-
-	stackb = initialize_stack();
-	stacka = fill_stack(ar, k);
-	afficher_stack(stacka);
-	afficher_stack(stackb);
-	free_stack(stacka);
-	free_stack(stackb);
-}
 
 void	parse_numbers(char *input, int *arr)
 {
-	int	i;
-
-	i = 0, a;
-	i = 0, a = 0, c, sign;
+	int	i,a, c , sign;
+	i = 0, a = 0;
 	while (input[i])
 	{
 		sign = 1;
@@ -190,9 +176,7 @@ int	extract_number(char *input, int *i, int *arr)
 
 void	is_here_dup(int *a, int k)
 {
-	int	i;
-
-	i = 0, j;
+	int i = 0, j;
 	while (i < k - 1)
 	{
 		j = i + 1;
@@ -224,11 +208,14 @@ int	is_sorted(int *a, int k)
 	}
 	return (1);
 }
+void algorithm(stack_t* a , stack_t *b);
 
 int	main(int ac, char **av)
 {
 	int	k;
 	int	*ar;
+	stack_t	*stacka;
+	stack_t	*stackb;
 
 	k = 0;
 	if (ac < 2)
@@ -240,7 +227,19 @@ int	main(int ac, char **av)
 	}
 	ar = parse_input(ac, av, &k);
 	is_here_dup(ar, k);
-	process_stack(ar, k);
+	stackb = initialize_stack();
+	stacka = fill_stack(ar, k);
+	afficher_stack(stacka);
+	afficher_stack(stackb);
+	algorithm(stacka , stackb);
+	afficher_stack(stackb);
+	free_stack(stacka);
+	free_stack(stackb);
 	free(ar);
 	return (0);
+}
+
+void algorithm(stack_t *a, stack_t *b)
+{
+	
 }
