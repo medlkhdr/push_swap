@@ -13,7 +13,7 @@ $(NAME): $(OBJS)
 	@echo "maked push_swap"
 
 %.o: %.c $(HEADER)
-	@$(CC) $(CFLAGS) -c $< -o $@ -lm 
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJS)
