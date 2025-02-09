@@ -227,8 +227,6 @@ int	main(int ac, char **av)
 	is_here_dup(ar, k);
 	stackb = initialize_stack();
 	stacka = fill_stack(ar, k);
-	afficher_stack(stacka);
-	afficher_stack(stackb);
 	int size = stack_size(stacka);
     if (size == 2) 
 		sort_2(stacka);
@@ -238,8 +236,6 @@ int	main(int ac, char **av)
 		sort_5(stacka, stackb);
     else
 		printf("baqi\n");
-	afficher_stack(stacka);
-	afficher_stack(stackb);
 	free_stack(stacka);
 	free_stack(stackb);
 	free(ar);

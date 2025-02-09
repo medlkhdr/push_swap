@@ -3,7 +3,7 @@
 void sort_2(stack_t *a)
 {
     if (a->head->i > a->head->next->i)
-        swap(a);
+        sa(a);
 }
 
 void sort_3(stack_t *a) {
@@ -12,21 +12,21 @@ void sort_3(stack_t *a) {
     int bot = a->tail->i;
 
     if (top > mid && mid < bot && top < bot)
-        swap(a);
+        sa(a);
     else if (top > mid && mid > bot) 
     { 
-        swap(a);
-        reverse_rotate(a); 
+        sa(a);
+        rra(a); 
     }
     else if (top > mid && mid < bot)
-        rotate(a);
+        ra(a);
     else if (top < mid && mid > bot && top < bot) 
     {
-        reverse_rotate(a); 
-        swap(a); 
+        ra(a); 
+        sa(a); 
     }
     else if (top < mid && mid > bot)
-            reverse_rotate(a);
+            rra(a);
 }
 
 void sort_5(stack_t *a, stack_t *b)
@@ -36,13 +36,13 @@ void sort_5(stack_t *a, stack_t *b)
      while(i < 2)
      {
         while (a->head->i != get_min(a))
-            rotate(a);
-        push(a, b);
+            ra(a);
+        pa(a, b);
         i++;
      }
     sort_3(a);
     while (b->head) 
-        push(b, a);
+        pa(b, a);
     if (a->head->i > a->head->next->i) 
-        swap(a);
+        sa(a);
 }
