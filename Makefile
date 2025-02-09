@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = main.c stackit.c operations.c algorithme.c 
+SRCS = main.c stackit.c operations.c o_t_t.c utils.c 
 HEADER = push_swap.h
 NAME = push_swap
 OBJS = $(SRCS:.c=.o)

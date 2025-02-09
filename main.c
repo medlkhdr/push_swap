@@ -25,7 +25,7 @@ void	check(char *str)
 			i++;
 		if (str[i] != 32 && !(str[i] >= '0' && str[i] <= '9'))
 		{
-			write(1, "ERROR\n", 6);
+			write(1, "Error", 5);
 			exit(1);
 		}
 		i++;
@@ -34,7 +34,7 @@ void	check(char *str)
 		str++;
 	if (*str == '\0')
 	{
-		write(1, "ERROR", 5);
+		write(1, "Error", 5);
 		exit(1);
 	}
 }
@@ -91,7 +91,7 @@ size_t	ft_strlen(const char *s)
 
 	if (s[0] == '\0')
 	{
-		write(1, "ERROR\n", 6);
+		write(1, "Error", 5);
 		exit(1);
 	}
 	while (*ptr)
@@ -103,7 +103,7 @@ void	handle_overflow(int *a, char *b)
 {
 	free(a);
 	free(b);
-	write(1, "ERROR\n", 6);
+	write(1, "Error", 5);
 	exit(1);
 }
 
@@ -185,7 +185,7 @@ void	is_here_dup(int *a, int k)
 			if (a[i] == a[j])
 			{
 				free(a);
-				write(2, "ERROR\n", 6);
+				write(2, "Error", 5);
 				exit(1);
 			}
 			j++;
@@ -208,8 +208,6 @@ int	is_sorted(int *a, int k)
 	}
 	return (1);
 }
-void algorithm(stack_t* a , stack_t *b);
-
 int	main(int ac, char **av)
 {
 	int	k;
@@ -220,9 +218,9 @@ int	main(int ac, char **av)
 	k = 0;
 	if (ac < 2)
 		return (0);
-	if (av[1][0] == '\0')
+	if (av[1] == NULL)
 	{
-		write(2, "ERROR:\n", 7);
+		write(2, "Error", 5);
 		exit(1);
 	}
 	ar = parse_input(ac, av, &k);
@@ -231,15 +229,19 @@ int	main(int ac, char **av)
 	stacka = fill_stack(ar, k);
 	afficher_stack(stacka);
 	afficher_stack(stackb);
-	algorithm(stacka , stackb);
+	int size = stack_size(stacka);
+    if (size == 2) 
+		sort_2(stacka);
+    else if (size == 3) 
+		sort_3(stacka);
+    else if (size <= 5) 
+		sort_5(stacka, stackb);
+    else
+		printf("baqi\n");
+	afficher_stack(stacka);
 	afficher_stack(stackb);
 	free_stack(stacka);
 	free_stack(stackb);
 	free(ar);
 	return (0);
-}
-
-void algorithm(stack_t *a, stack_t *b)
-{
-	
 }
