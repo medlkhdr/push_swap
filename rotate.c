@@ -1,5 +1,18 @@
 #include "push_swap.h"
 
+void rotate(stack_t *stack)
+{
+    if (!stack || !stack->head || !stack->head->next)
+        return;
+    node_t *first = stack->head;
+    stack->head = first->next;
+    stack->head->prev = NULL;
+    stack->tail->next = first;
+    first->prev = stack->tail;
+    first->next = NULL;
+    stack->tail = first;
+}
+
 void ra(stack_t *a)
 {
     rotate(a);

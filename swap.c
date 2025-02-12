@@ -1,5 +1,21 @@
 #include "push_swap.h"
 
+void swap(stack_t *stack)
+{
+    if (!stack || !stack->head || !stack->head->next)
+        return;
+    node_t *first = stack->head;
+    node_t *second = first->next;
+    first->next = second->next;
+    if (first->next)
+        first->next->prev = first;
+    second->prev = NULL;
+    second->next = first;
+    first->prev = second;
+    stack->head = second;
+    if (stack->tail == second)
+        stack->tail = first;
+}
 
 void sa(stack_t *a)
 {
