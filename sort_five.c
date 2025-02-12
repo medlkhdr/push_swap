@@ -49,7 +49,9 @@ static void second(stack_t *a , stack_t *b)
 void sort_5(stack_t *a , stack_t *b )
 {
     first(a, b);
+
     second(a,b);
+
     if(b->head->i < b->head->next->i)
         sb(b);
     sort_3(a);

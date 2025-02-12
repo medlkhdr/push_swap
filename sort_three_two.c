@@ -23,7 +23,7 @@ void sort_3(stack_t *a)
         ra(a);
     else if (top < mid && mid > bot && top < bot) 
     {
-        ra(a); 
+        rra(a); 
         sa(a); 
     }
     else if (top < mid && mid > bot)
