@@ -30,6 +30,7 @@ int					is_sorted(int *a, int k);
 void				process_stack(int *ar, int k);
 void				message(void);
 
+
 //about stack
 //------------------------------------------------------
 stack_t				*fill_stack(int *arr, int k);
