@@ -3,7 +3,7 @@
 
 void	handle_overflow(int *a, char *b)
 {
-	free(a);i
+	free(a);
 	free(b);
 	message();
 	exit(1);

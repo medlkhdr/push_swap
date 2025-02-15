@@ -12,6 +12,7 @@
 typedef struct node_s
 {
 	int				i;
+	int index;
 	struct node_s	*next;
 	struct node_s	*prev;
 }					node_t;
@@ -29,7 +30,6 @@ size_t				ft_strlen(const char *s);
 int					is_sorted(int *a, int k);
 void				process_stack(int *ar, int k);
 void				message(void);
-
 
 //about stack
 //------------------------------------------------------

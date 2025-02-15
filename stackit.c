@@ -59,7 +59,7 @@ void	afficher_stack(stack_t *a)
 	b = a->head;
 	while (b)
 	{
-		printf("%d->", b->i);
+		printf("%d->", b->index);
 		b = b->next;
 	}
 	printf("NULL\n");
