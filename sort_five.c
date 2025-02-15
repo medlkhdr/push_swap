@@ -1,60 +1,55 @@
 #include "push_swap.h"
 
-static void first(stack_t *a , stack_t *b)
+static int get_min_index(stack_t *a)
 {
-    if(a->head->i == get_min(a))
-        pb(a, b);
-    else if(a->head->next->i == get_min(a))
+    int min = get_min(a);
+    int index = 0;
+    node_t *current = a->head;
+    
+    while (current)
     {
-        sa(a);
-        pb(a,b);
-    } else if(a->head->next->next->i == get_min(a))
-    {
-        ra(a);
-        ra(a);
-        pb(a, b);
+        if (current->i == min)
+            break;
+        index++;
+        current = current->next;
     }
-    else if(a->head->next->next->next->i == get_min(a))
+    return index;
+}
+
+static void smart_rotate(stack_t *a, int target_index)
+{
+    int size = stack_size(a);
+    
+    if (target_index <= size / 2)
     {
-        rra(a);
-        rra(a);
-        pb(a, b);
+        while (target_index-- > 0)
+            ra(a);
     }
-    else if(a->head->next->next->next->next->i == get_min(a))
+    else
     {
-        rra(a);
-        pb(a, b);
+        target_index = size - target_index;
+        while (target_index-- > 0)
+            rra(a);
     }
 }
-static void second(stack_t *a , stack_t *b)
+
+static void move_min_to_b(stack_t *a, stack_t *b)
 {
-    if(a->head->i == get_min(a))
-        pb(a, b);
-    else if(a->head->next->i == get_min(a))
-    {
-        sa(a);
-        pb(a,b);
-    } else if(a->head->next->next->i == get_min(a))
-    {
-        ra(a);
-        ra(a);
-        pb(a, b);
-    }
-    else if(a->head->next->next->next->i == get_min(a))
-    {
-        rra(a);
-        pb(a, b);
-    }
+    int min_index = get_min_index(a);
+    smart_rotate(a, min_index);
+    pb(a, b);
 }
-void sort_5(stack_t *a , stack_t *b )
+
+void sort_5(stack_t *a, stack_t *b)
 {
-    first(a, b);
+    move_min_to_b(a, b);
+    move_min_to_b(a, b);
 
-    second(a,b);
-
-    if(b->head->i < b->head->next->i)
+    if (b->head->i < b->head->next->i)
         sb(b);
+
     sort_3(a);
+
     pa(a, b);
-    pa(a,b);
+    pa(a, b);
 }
