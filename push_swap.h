@@ -1,84 +1,76 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
 # include <limits.h>
-# include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
-
-# include <stdlib.h>
-# include <unistd.h>
+# include <string.h>
 # include <unistd.h>
 
-typedef struct node_s
+// Stack node structure
+typedef struct node
 {
-	int				i;
-	int index;
-	struct node_s	*next;
-	struct node_s	*prev;
-}					node_t;
+	int			i;
+	int			index;
+	struct node	*next;
+	struct node	*prev;
+}				node_t;
 
-typedef struct stack_s
+// Stack structure
+typedef struct stack
 {
-	node_t			*tail;
-	node_t			*head;
-}					stack_t;
+	node_t		*head;
+	node_t		*tail;
+}				stack_t;
 
+// Function prototypes
+void			message(void);
+void			bubble_sort(int *arr, int size);
+int				*sorted(int *a, int size);
+// Utility functions
+size_t			ft_strlen(const char *s);
+int				is_sorted(int *a, int k);
+char			*join(int ac, char **av, size_t size);
+void			da7k(char *string, int *i);
 
-void				check(char *str);
-void				da7k(char *string, int *i);
-size_t				ft_strlen(const char *s);
-int					is_sorted(int *a, int k);
-void				process_stack(int *ar, int k);
-void				message(void);
+// Parsing functions
+void			replace_by_space(char *str);
+void			check(char *str);
+void			handle_overflow(int *a, char *b);
+int				*parse_input(int ac, char **av, int *k);
+void			parse_numbers(char *input, int *arr);
+long			extract_number(char *input, int *i, int *arr, int sign);
+void			is_here_dup(int *a, int k);
 
-//about stack
-//------------------------------------------------------
-stack_t				*fill_stack(int *arr, int k);
-stack_t				*initialize_stack(void);
-void				free_stack(stack_t *stack);
-void				afficher_stack(stack_t *a);
-int					stack_size(stack_t *stack);
-int					get_min(stack_t *stack);
-int					get_max(stack_t *stack);
-//------------------------------------------------------
-//sorting function 
-//-----------------------------------------------------
-void				sort_2(stack_t *a);
-void				sort_3(stack_t *a);
-void				sort_5(stack_t *a, stack_t *b);
-//-----------------------------------------------------
+// Sorting functions
+void			sort_2(stack_t *a);
+void			sort_3(stack_t *a);
+void			sort_5(stack_t *a, stack_t *b);
+void			big_sort(stack_t *a, stack_t *b, int *sorted_arr, int size);
+// Stack operations
+void			rotate(stack_t *stack);
+void			ra(stack_t *a);
+void			rb(stack_t *b);
+void			rr(stack_t *a, stack_t *b);
+void			reverse_rotate(stack_t *stack);
+void			rra(stack_t *a);
+void			rrb(stack_t *b);
+void			rrr(stack_t *a, stack_t *b);
+void			swap(stack_t *stack);
+void			sa(stack_t *a);
+void			sb(stack_t *b);
+void			ss(stack_t *a, stack_t *b);
+void			push(stack_t *from, stack_t *to);
+void			pa(stack_t *a, stack_t *b);
+void			pb(stack_t *a, stack_t *b);
 
-//parsing files 
-//---------------------------------------------------------
-void				parse_numbers(char *input, int *arr);
-char				*join(int ac, char **av, size_t size);
-int					extract_number(char *input, int *i, int *arr);
-void				is_here_dup(int *a, int k);
-int					*parse_input(int ac, char **av, int *k);
-void				replace_by_space(char *str);
-void				handle_overflow(int *a, char *b);
-//---------------------------------------------------------
-// les operation
-// -------------------------------------------------------------------------------------
-void				sb(stack_t *b);
-void				sa(stack_t *a);
-void				ss(stack_t *a , stack_t *b);
-void				pb(stack_t *b, stack_t *a);
-void				pa(stack_t *a , stack_t *b);
-void				rb(stack_t *b);
-void				ra(stack_t *a);
-void				rr(stack_t *a , stack_t *b);
-void				rra(stack_t *a);
-void				rrb(stack_t *b);
-void				rrr(stack_t *a , stack_t *b);
+// Stack utility functions
+int				stack_size(stack_t *stack);
+int				get_min(stack_t *stack);
+int				get_max(stack_t *stack);
+stack_t			*fill_stack(int *arr, int k);
+void			free_stack(stack_t *stack);
+stack_t			*initialize_stack(void);
+void			afficher_stack(stack_t *a);
 
-
-//---------------------------------------------------------------------------------
-void				reverse_rotate(stack_t *stack);
-void				rotate(stack_t *stack);
-void				push(stack_t *from, stack_t *to);
-void				swap(stack_t *stack);
-//-----------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------
 #endif
-

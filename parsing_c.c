@@ -1,5 +1,43 @@
 #include "push_swap.h"
 
+void	replace_by_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 9 && str[i] <= 13)
+			str[i] = 32;
+		i++;
+	}
+}
+
+void	check(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] == '+' || str[i] == '-') && !(str[i - 1] >= '0' && str[i
+				- 1] <= '9'))
+			i++;
+		if (str[i] != 32 && !(str[i] >= '0' && str[i] <= '9'))
+		{
+			message();
+			exit(1);
+		}
+		i++;
+	}
+	while (*str == 32)
+		str++;
+	if (*str == '\0')
+	{
+		message();
+		exit(1);
+	}
+}
 
 void	handle_overflow(int *a, char *b)
 {
@@ -41,8 +79,10 @@ int	*parse_input(int ac, char **av, int *k)
 
 void	parse_numbers(char *input, int *arr)
 {
-	int	i,a, c , sign;
-	i = 0, a = 0;
+	int		sign ,i = 0, a;
+	long	c;
+
+	i = 0, a = 0, sign = 1;
 	while (input[i])
 	{
 		sign = 1;
@@ -54,28 +94,28 @@ void	parse_numbers(char *input, int *arr)
 				sign = -1;
 			i++;
 		}
-		c = extract_number(input, &i, arr);
-		c *= sign;
+		c = extract_number(input, &i, arr, sign);
 		arr[a++] = c;
 	}
 }
 
-
-int	extract_number(char *input, int *i, int *arr)
+long	extract_number(char *input, int *i, int *arr, int sign)
 {
-	int	c;
+	long	c;
 
 	c = 0;
 	while (input[*i] >= '0' && input[*i] <= '9')
 	{
-		if (c > INT_MAX / 10 || (c == INT_MAX / 10 && (input[*i]
-					- '0') > INT_MAX % 10))
-			handle_overflow(arr, input);
 		c = c * 10 + (input[*i] - '0');
 		(*i)++;
 	}
-	return (c);
+	if (sign == 1 && (c > INT_MAX))
+		handle_overflow(arr, input);
+	if (sign == -1 && c > ((long)(INT_MAX) + 1))
+		handle_overflow(arr, input);
+	return (c*sign);
 }
+
 void	is_here_dup(int *a, int k)
 {
 	int i = 0, j;
@@ -93,10 +133,5 @@ void	is_here_dup(int *a, int k)
 			j++;
 		}
 		i++;
-	}
-	if (is_sorted(a, k))
-	{
-		free(a);
-		exit(0);
 	}
 }

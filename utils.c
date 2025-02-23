@@ -1,39 +1,114 @@
 #include "push_swap.h"
 
-int stack_size(stack_t *stack)
+void	message(void)
 {
-    int size = 0;
-    node_t *current = stack->head;
-    while (current)
-    {
-        size++;
-        current = current->next;
-    }
-    return size;
+	write(2, "Error\n", 5);
 }
 
-int get_min(stack_t *stack)
+void	bubble_sort(int *arr, int size)
 {
-    int min = INT_MAX;
-    node_t *current = stack->head;
-    while (current)
-    {
-        if (current->i < min)
-            min = current->i;
-        current = current->next;
-    }
-    return min;
+	int i, j, temp;
+	i = 0;
+	while (i < size - 1)
+	{
+		j = 0;
+		while (j < size - i - 1)
+		{
+			if (arr[j] > arr[j + 1])
+			{
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
-int get_max(stack_t *stack) 
+int	*sorted(int *a, int size)
 {
-    int max = INT_MIN;
-    node_t *current = stack->head;
-    while (current)
-    {
-        if (current->i > max)
-            max = current->i;
-        current = current->next;
-    }
-    return max;
+	int	*sorted_arr;
+	int	i;
+
+	sorted_arr = (int *)malloc(size * sizeof(int));
+	if (!sorted_arr)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		sorted_arr[i] = a[i];
+		i++;
+	}
+	bubble_sort(sorted_arr, size);
+	return (sorted_arr);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	const char	*ptr = s;
+
+	if (s[0] == '\0')
+	{
+		message();
+		exit(1);
+	}
+	while (*ptr)
+		ptr++;
+	return ((size_t)(ptr - s));
+}
+
+int	is_sorted(int *a, int k)
+{
+	for (int i = 0; i < k - 1; i++)
+	{
+		if (a[i] > a[i + 1])
+			return (0);
+	}
+	return (1);
+}
+
+char	*join(int ac, char **av, size_t size)
+{
+	char	*str;
+
+	int i, j, k;
+	i = 1, j = 0;
+	str = malloc(sizeof(char) * (size + 1));
+	if (!str)
+	{
+		write(2, "Memory allocation failed\n", 24);
+		exit(1);
+	}
+	while (i < ac)
+	{
+		k = 0;
+		while (av[i][k])
+			str[j++] = av[i][k++];
+		if (i < ac - 1)
+			str[j++] = 32;
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
+}
+
+void	da7k(char *string, int *i)
+{
+	int j;
+
+	j = 0;
+	while (string[j])
+	{
+		while (string[j] == 32)
+			j++;
+		if (string[j] >= '0' && string[j] <= '9')
+		{
+			(*i)++;
+			while (string[j] >= '0' && string[j] <= '9')
+				j++;
+		}
+		else
+			j++;
+	}
 }
